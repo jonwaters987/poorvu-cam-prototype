@@ -35,12 +35,16 @@
 
   host.innerHTML = `
     <section class="cam-interactive" aria-labelledby="cam-interactive-title">
+      <h2 id="cam-interactive-title" class="cam-visually-hidden">
+        Collaborative Assessment Principles
+      </h2>
+
+      <p class="cam-section-intro">
+        Our work is guided by this model, which emphasizes assessments that are:
+      </p>
+
       <div class="cam-inner">
         <div class="cam-visual-column">
-          <h2 id="cam-interactive-title" class="cam-visually-hidden">
-            Collaborative Assessment Principles
-          </h2>
-
           <div class="cam-flower" role="group" aria-label="Select a Collaborative Assessment principle">
             <button class="cam-petal cam-petal--aligned" type="button" data-principle="aligned" aria-pressed="false">
               <span class="cam-petal-title">${principles.aligned.label}</span>
@@ -62,21 +66,14 @@
               <span class="cam-petal-copy">${principles.contextual.short}</span>
             </button>
 
-            <button class="cam-center" type="button" data-action="show-all" aria-label="Show all Collaborative Assessment principles">
+            <button class="cam-center" type="button" data-action="reset" aria-label="Clear the selected principle">
               <span>Collaborative<br>Assessment<br>Principles</span>
             </button>
           </div>
         </div>
 
-        <div class="cam-detail-column">
-          <div class="cam-detail-heading-row">
-            <p class="cam-detail-eyebrow">Collaborative Assessment Model</p>
-            <button class="cam-show-all" type="button" data-action="show-all">
-              View all principles
-            </button>
-          </div>
-
-          <div class="cam-details" aria-live="polite">
+        <div class="cam-detail-column" aria-live="polite">
+          <div class="cam-details">
             ${Object.entries(principles)
               .map(
                 ([id, item]) => `
@@ -92,48 +89,65 @@
     </section>
   `;
 
+  const flower = host.querySelector(".cam-flower");
   const petalButtons = Array.from(host.querySelectorAll(".cam-petal"));
   const detailItems = Array.from(host.querySelectorAll(".cam-detail-item"));
-  const showAllButtons = Array.from(host.querySelectorAll('[data-action="show-all"]'));
-  const flower = host.querySelector(".cam-flower");
+  const resetButton = host.querySelector('[data-action="reset"]');
 
-  function selectPrinciple(id) {
-    flower.dataset.selected = id;
+  let lockedId = null;
+
+  function paint(id) {
+    if (id) {
+      flower.dataset.selected = id;
+    } else {
+      delete flower.dataset.selected;
+    }
 
     petalButtons.forEach((button) => {
-      const selected = button.dataset.principle === id;
-      button.classList.toggle("is-selected", selected);
-      button.setAttribute("aria-pressed", selected ? "true" : "false");
+      const active = button.dataset.principle === id;
+      button.classList.toggle("is-active", active);
+      button.classList.toggle("is-selected", lockedId === button.dataset.principle);
+      button.setAttribute(
+        "aria-pressed",
+        lockedId === button.dataset.principle ? "true" : "false"
+      );
     });
 
     detailItems.forEach((item) => {
-      const selected = item.dataset.detail === id;
-      item.classList.toggle("is-selected", selected);
-      item.hidden = !selected;
+      item.classList.toggle("is-active", item.dataset.detail === id);
+      item.classList.toggle("is-selected", item.dataset.detail === lockedId);
     });
   }
 
-  function showAll() {
-    delete flower.dataset.selected;
+  function previewPrinciple(id) {
+    paint(id);
+  }
 
-    petalButtons.forEach((button) => {
-      button.classList.remove("is-selected");
-      button.setAttribute("aria-pressed", "false");
-    });
+  function restoreLockedState() {
+    paint(lockedId);
+  }
 
-    detailItems.forEach((item) => {
-      item.classList.remove("is-selected");
-      item.hidden = false;
-    });
+  function togglePrinciple(id) {
+    lockedId = lockedId === id ? null : id;
+    paint(lockedId);
+  }
+
+  function resetView() {
+    lockedId = null;
+    paint(null);
   }
 
   petalButtons.forEach((button) => {
-    button.addEventListener("click", () => selectPrinciple(button.dataset.principle));
+    const id = button.dataset.principle;
+
+    button.addEventListener("mouseenter", () => previewPrinciple(id));
+    button.addEventListener("mouseleave", restoreLockedState);
+    button.addEventListener("focus", () => previewPrinciple(id));
+    button.addEventListener("blur", restoreLockedState);
+    button.addEventListener("click", () => togglePrinciple(id));
   });
 
-  showAllButtons.forEach((button) => {
-    button.addEventListener("click", showAll);
-  });
+  resetButton.addEventListener("click", resetView);
 
-  showAll();
+  resetView();
 })();
