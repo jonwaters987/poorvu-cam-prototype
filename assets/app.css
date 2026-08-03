@@ -1,65 +1,280 @@
-.cam-prototype {
-  max-width: 900px;
+.cam-interactive {
+  --cam-section-blue: #5b9fee;
+  --cam-aligned: #0869cf;
+  --cam-actionable: #35afe9;
+  --cam-sustainable: #5668f6;
+  --cam-contextual: #11b9c8;
+  --cam-center: #ffd34f;
+  --cam-ink: #0f2437;
+  --cam-white: #ffffff;
+  --cam-focus: #111111;
+
+  width: 100%;
+  padding: clamp(28px, 4vw, 56px) clamp(20px, 5vw, 72px);
+  background: var(--cam-section-blue);
+  color: var(--cam-ink);
+  box-sizing: border-box;
+}
+
+.cam-interactive *,
+.cam-interactive *::before,
+.cam-interactive *::after {
+  box-sizing: border-box;
+}
+
+.cam-inner {
+  width: min(100%, 1080px);
   margin: 0 auto;
-  padding: 32px;
-  background: #ffffff;
-  color: #222222;
-  font-family: Arial, sans-serif;
-}
-
-.cam-prototype h2 {
-  margin: 0 0 12px;
-  color: #00356b;
-  font-family: Georgia, serif;
-  font-size: 32px;
-}
-
-.cam-buttons {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin: 24px 0;
+  grid-template-columns: minmax(320px, 470px) minmax(320px, 1fr);
+  gap: clamp(34px, 6vw, 72px);
+  align-items: center;
 }
 
-.cam-buttons button {
-  border: 2px solid #286dc0;
-  background: #ffffff;
-  color: #00356b;
-  padding: 16px;
-  font-size: 17px;
-  font-weight: bold;
+.cam-visual-column {
+  display: flex;
+  justify-content: center;
+}
+
+.cam-flower {
+  position: relative;
+  width: min(100%, 466px);
+  aspect-ratio: 1 / 1;
+}
+
+.cam-petal,
+.cam-center,
+.cam-show-all {
+  font: inherit;
+}
+
+.cam-petal {
+  position: absolute;
+  width: 48%;
+  height: 48%;
+  border: 3px solid transparent;
+  padding: clamp(18px, 3vw, 32px);
+  color: var(--cam-white);
+  text-align: center;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 180ms ease,
+    opacity 180ms ease,
+    filter 180ms ease,
+    border-color 180ms ease;
 }
 
-.cam-buttons button:hover,
-.cam-buttons button:focus {
-  background: #eaf2f8;
+.cam-petal:hover,
+.cam-petal:focus-visible,
+.cam-petal.is-selected {
+  z-index: 3;
+  transform: scale(1.055);
+  border-color: var(--cam-focus);
+  filter: saturate(1.08);
+  outline: none;
 }
 
-.cam-detail {
-  padding: 24px;
-  border-left: 6px solid #286dc0;
-  background: #f2f6fa;
+.cam-flower[data-selected] .cam-petal:not(.is-selected) {
+  opacity: 0.45;
+  filter: saturate(0.72);
 }
 
-.cam-detail h3 {
-  margin-top: 0;
-  color: #00356b;
-  font-family: Georgia, serif;
-  font-size: 24px;
+.cam-petal--aligned {
+  top: 0;
+  left: 0;
+  border-radius: 0 58% 58% 58%;
+  background: var(--cam-aligned);
 }
 
-.cam-detail p {
-  margin-bottom: 0;
-  line-height: 1.6;
+.cam-petal--actionable {
+  top: 0;
+  right: 0;
+  border-radius: 58% 0 58% 58%;
+  background: var(--cam-actionable);
 }
 
-@media (max-width: 600px) {
-  .cam-prototype {
-    padding: 20px;
+.cam-petal--sustainable {
+  bottom: 0;
+  left: 0;
+  border-radius: 58% 58% 58% 0;
+  background: var(--cam-sustainable);
+}
+
+.cam-petal--contextual {
+  right: 0;
+  bottom: 0;
+  border-radius: 58% 58% 0 58%;
+  background: var(--cam-contextual);
+}
+
+.cam-petal-title {
+  margin-bottom: 12px;
+  font-size: clamp(17px, 2.2vw, 22px);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.cam-petal-copy {
+  max-width: 16ch;
+  font-size: clamp(13px, 1.55vw, 16px);
+  line-height: 1.45;
+}
+
+.cam-center {
+  position: absolute;
+  z-index: 5;
+  top: 50%;
+  left: 50%;
+  width: 34%;
+  aspect-ratio: 1.35 / 1;
+  transform: translate(-50%, -50%);
+  border: 2px solid transparent;
+  border-radius: 50%;
+  padding: 14px;
+  background: var(--cam-center);
+  color: #11385d;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-weight: 600;
+  line-height: 1.2;
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.cam-center:hover,
+.cam-center:focus-visible {
+  transform: translate(-50%, -50%) scale(1.06);
+  border-color: var(--cam-focus);
+  outline: none;
+}
+
+.cam-detail-column {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cam-detail-heading-row {
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.cam-detail-eyebrow {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.cam-show-all {
+  border: 1px solid rgba(15, 36, 55, 0.35);
+  border-radius: 999px;
+  padding: 8px 13px;
+  background: rgba(255, 255, 255, 0.22);
+  color: var(--cam-ink);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.cam-show-all:hover,
+.cam-show-all:focus-visible {
+  background: rgba(255, 255, 255, 0.48);
+  outline: 2px solid var(--cam-focus);
+  outline-offset: 2px;
+}
+
+.cam-details {
+  display: grid;
+  gap: 18px;
+}
+
+.cam-detail-item {
+  border-left: 4px solid rgba(15, 36, 55, 0.25);
+  padding: 2px 0 2px 18px;
+  transition: border-color 180ms ease, transform 180ms ease;
+}
+
+.cam-detail-item.is-selected {
+  border-left-color: var(--cam-focus);
+  transform: translateX(4px);
+}
+
+.cam-detail-item p {
+  margin: 0;
+  font-size: clamp(15px, 1.65vw, 18px);
+  line-height: 1.62;
+}
+
+.cam-visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+@media (max-width: 820px) {
+  .cam-inner {
+    grid-template-columns: 1fr;
   }
 
-  .cam-buttons {
-    grid-template-columns: 1fr;
+  .cam-detail-column {
+    width: min(100%, 640px);
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .cam-interactive {
+    padding-inline: 14px;
+  }
+
+  .cam-petal {
+    padding: 13px;
+  }
+
+  .cam-petal-title {
+    margin-bottom: 7px;
+    font-size: 14px;
+  }
+
+  .cam-petal-copy {
+    font-size: 11px;
+    line-height: 1.3;
+  }
+
+  .cam-center {
+    width: 38%;
+    padding: 9px;
+    font-size: 11px;
+  }
+
+  .cam-detail-heading-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cam-petal,
+  .cam-center,
+  .cam-detail-item {
+    transition: none;
   }
 }
