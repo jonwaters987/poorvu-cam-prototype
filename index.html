@@ -156,6 +156,11 @@
 
 
 
+
+.cam-petal--sustainable .cam-petal-content {
+  transform: translateX(-8px);
+}
+
 .cam-petal-title {
   margin-bottom: 11px;
   font-size: clamp(16px, 1.55vw, 18px);
@@ -226,6 +231,12 @@
     box-shadow 180ms ease;
 }
 
+
+.cam-detail-item:focus-visible {
+  outline: 2px solid var(--cam-focus);
+  outline-offset: 4px;
+}
+
 .cam-detail-item.is-active {
   border-left-color: var(--cam-focus);
   opacity: 1;
@@ -288,6 +299,11 @@
   .cam-petal-title {
     margin-bottom: 7px;
     font-size: 14px;
+  }
+
+
+  .cam-petal--sustainable .cam-petal-content {
+    transform: translateX(-4px);
   }
 
 
@@ -409,7 +425,7 @@
             ${Object.entries(principles)
               .map(
                 ([id, item]) => `
-                  <article class="cam-detail-item" data-detail="${id}">
+                  <article class="cam-detail-item" data-detail="${id}" tabindex="0">
                     <p>${item.definition}</p>
                   </article>
                 `
@@ -451,6 +467,18 @@
     });
   }
 
+  function previewAllPrinciples() {
+    delete flower.dataset.selected;
+
+    petalButtons.forEach((button) => {
+      button.classList.remove("is-active");
+    });
+
+    detailItems.forEach((item) => {
+      item.classList.add("is-active");
+    });
+  }
+
   function previewPrinciple(id) {
     paint(id);
   }
@@ -479,6 +507,19 @@
     button.addEventListener("click", () => togglePrinciple(id));
   });
 
+  detailItems.forEach((item) => {
+    const id = item.dataset.detail;
+
+    item.addEventListener("mouseenter", () => previewPrinciple(id));
+    item.addEventListener("mouseleave", restoreLockedState);
+    item.addEventListener("focus", () => previewPrinciple(id));
+    item.addEventListener("blur", restoreLockedState);
+  });
+
+  resetButton.addEventListener("mouseenter", previewAllPrinciples);
+  resetButton.addEventListener("mouseleave", restoreLockedState);
+  resetButton.addEventListener("focus", previewAllPrinciples);
+  resetButton.addEventListener("blur", restoreLockedState);
   resetButton.addEventListener("click", resetView);
 
   resetView();
