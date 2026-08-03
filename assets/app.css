@@ -60,7 +60,7 @@
   position: absolute;
   width: 48.5%;
   height: 48.5%;
-  border: 2px solid rgba(255, 255, 255, .62);
+  border: 2px solid rgba(255, 255, 255, 0.62);
   padding: clamp(20px, 2.5vw, 31px);
   color: var(--cam-white);
   text-align: center;
@@ -70,8 +70,8 @@
   align-items: center;
   justify-content: center;
   box-shadow:
-    0 8px 18px rgba(8, 47, 84, .10),
-    inset 0 0 0 1px rgba(255, 255, 255, .10);
+    0 8px 18px rgba(8, 47, 84, 0.10),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.10);
   transition:
     transform 180ms ease,
     opacity 180ms ease,
@@ -80,7 +80,6 @@
     box-shadow 180ms ease;
 }
 
-
 .cam-petal:hover,
 .cam-petal:focus-visible,
 .cam-petal.is-active {
@@ -88,17 +87,15 @@
   transform: translateY(-5px) scale(1.035);
   border-color: var(--cam-focus);
   box-shadow:
-    0 18px 32px rgba(8, 47, 84, .24),
-    inset 0 0 0 1px rgba(255, 255, 255, .16);
+    0 18px 32px rgba(8, 47, 84, 0.24),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.16);
   filter: saturate(1.08);
   outline: none;
 }
 
-
-
 .cam-flower[data-selected] .cam-petal:not(.is-active) {
-  opacity: .58;
-  filter: saturate(.78);
+  opacity: 0.58;
+  filter: saturate(0.78);
 }
 
 .cam-petal--aligned {
@@ -123,8 +120,9 @@
 }
 
 .cam-petal--sustainable .cam-petal-title {
-  font-size: clamp(15px, 1.65vw, 18px);
-  letter-spacing: -0.015em;
+  font-size: clamp(14px, 1.15vw, 16px);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
 }
 
 .cam-petal--contextual {
@@ -138,7 +136,7 @@
   margin-bottom: 11px;
   font-size: clamp(16px, 1.9vw, 21px);
   font-weight: 500;
-  letter-spacing: .01em;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
 }
 
@@ -156,7 +154,7 @@
   width: 34%;
   aspect-ratio: 1.35 / 1;
   transform: translate(-50%, -50%);
-  border: 2px solid rgba(17, 56, 93, .25);
+  border: 2px solid rgba(17, 56, 93, 0.25);
   border-radius: 50%;
   padding: 14px;
   background: var(--cam-center);
@@ -177,7 +175,7 @@
 .cam-center:focus-visible {
   transform: translate(-50%, -50%) scale(1.045);
   border-color: var(--cam-focus);
-  box-shadow: 0 8px 18px rgba(8, 47, 84, .18);
+  box-shadow: 0 8px 18px rgba(8, 47, 84, 0.18);
   outline: none;
 }
 
@@ -191,9 +189,9 @@
 }
 
 .cam-detail-item {
-  border-left: 4px solid rgba(15, 36, 55, .18);
+  border-left: 4px solid rgba(15, 36, 55, 0.18);
   padding: 10px 14px 10px 18px;
-  opacity: .86;
+  opacity: 0.86;
   transition:
     border-color 180ms ease,
     opacity 180ms ease,
@@ -206,14 +204,14 @@
   border-left-color: var(--cam-focus);
   opacity: 1;
   transform: translateX(5px);
-  background: rgba(255, 255, 255, .22);
-  box-shadow: 0 8px 22px rgba(8, 47, 84, .10);
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 8px 22px rgba(8, 47, 84, 0.10);
 }
 
 .cam-detail-item.is-selected {
   box-shadow:
-    0 8px 22px rgba(8, 47, 84, .13),
-    inset 0 0 0 1px rgba(255, 255, 255, .10);
+    0 8px 22px rgba(8, 47, 84, 0.13),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.10);
 }
 
 .cam-detail-item p {
@@ -261,9 +259,7 @@
   }
 
   .cam-petal--sustainable .cam-petal-title {
-    font-size: clamp(14px, 1.15vw, 16px);
-    letter-spacing: -0.02em;
-    white-space: nowrap;
+    font-size: 12.5px;
   }
 
   .cam-petal-copy {
