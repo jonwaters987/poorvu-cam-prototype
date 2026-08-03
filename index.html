@@ -136,11 +136,6 @@
   background: var(--cam-sustainable);
 }
 
-.cam-petal--sustainable .cam-petal-title {
-  font-size: clamp(14px, 1.15vw, 16px);
-  letter-spacing: -0.02em;
-  white-space: nowrap;
-}
 
 .cam-petal--contextual {
   right: 0;
@@ -149,9 +144,20 @@
   background: var(--cam-contextual);
 }
 
+
+.cam-petal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
 .cam-petal-title {
   margin-bottom: 11px;
-  font-size: clamp(16px, 1.9vw, 21px);
+  font-size: clamp(16px, 1.55vw, 18px);
   font-weight: 500;
   letter-spacing: .01em;
   text-transform: uppercase;
@@ -275,9 +281,7 @@
     font-size: 14px;
   }
 
-  .cam-petal--sustainable .cam-petal-title {
-    font-size: 12.5px;
-  }
+
 
   .cam-petal-copy {
     font-size: 11px;
@@ -358,23 +362,31 @@
         <div class="cam-visual-column">
           <div class="cam-flower" role="group" aria-label="Select a Collaborative Assessment principle">
             <button class="cam-petal cam-petal--aligned" type="button" data-principle="aligned" aria-pressed="false">
-              <span class="cam-petal-title">${principles.aligned.label}</span>
-              <span class="cam-petal-copy">${principles.aligned.short}</span>
+              <span class="cam-petal-content">
+                <span class="cam-petal-title">${principles.aligned.label}</span>
+                <span class="cam-petal-copy">${principles.aligned.short}</span>
+              </span>
             </button>
 
             <button class="cam-petal cam-petal--actionable" type="button" data-principle="actionable" aria-pressed="false">
-              <span class="cam-petal-title">${principles.actionable.label}</span>
-              <span class="cam-petal-copy">${principles.actionable.short}</span>
+              <span class="cam-petal-content">
+                <span class="cam-petal-title">${principles.actionable.label}</span>
+                <span class="cam-petal-copy">${principles.actionable.short}</span>
+              </span>
             </button>
 
             <button class="cam-petal cam-petal--sustainable" type="button" data-principle="sustainable" aria-pressed="false">
-              <span class="cam-petal-title">${principles.sustainable.label}</span>
-              <span class="cam-petal-copy">${principles.sustainable.short}</span>
+              <span class="cam-petal-content">
+                <span class="cam-petal-title">${principles.sustainable.label}</span>
+                <span class="cam-petal-copy">${principles.sustainable.short}</span>
+              </span>
             </button>
 
             <button class="cam-petal cam-petal--contextual" type="button" data-principle="contextual" aria-pressed="false">
-              <span class="cam-petal-title">${principles.contextual.label}</span>
-              <span class="cam-petal-copy">${principles.contextual.short}</span>
+              <span class="cam-petal-content">
+                <span class="cam-petal-title">${principles.contextual.label}</span>
+                <span class="cam-petal-copy">${principles.contextual.short}</span>
+              </span>
             </button>
 
             <button class="cam-center" type="button" data-action="reset" aria-label="Clear the selected principle">
