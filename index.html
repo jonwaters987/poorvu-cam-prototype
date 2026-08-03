@@ -24,7 +24,7 @@
   --cam-focus: #111111;
 
   width: 100%;
-  padding: clamp(34px, 5vw, 62px) clamp(22px, 5vw, 74px);
+  padding: clamp(38px, 5vw, 64px) clamp(22px, 5vw, 74px);
   background: var(--cam-section-blue);
   color: var(--cam-ink);
   box-sizing: border-box;
@@ -37,7 +37,7 @@
 }
 
 .cam-section-intro {
-  width: min(100%, 1080px);
+  width: min(100%, 900px);
   margin: 0 auto clamp(24px, 3vw, 34px);
   color: var(--cam-ink);
   font-size: clamp(17px, 1.65vw, 21px);
@@ -46,22 +46,23 @@
 }
 
 .cam-inner {
-  width: min(100%, 1080px);
+  width: min(100%, 900px);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(350px, 465px) minmax(390px, 1fr);
-  gap: clamp(42px, 6vw, 82px);
-  align-items: center;
+  grid-template-columns: 1fr;
+  gap: 38px;
+  align-items: start;
 }
 
 .cam-visual-column {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 .cam-flower {
   position: relative;
-  width: min(100%, 455px);
+  width: min(100%, 520px);
   aspect-ratio: 1 / 1;
 }
 
@@ -203,7 +204,9 @@
 }
 
 .cam-detail-column {
+  width: min(100%, 820px);
   min-width: 0;
+  margin: 0 auto;
 }
 
 .cam-details {
@@ -253,18 +256,6 @@
   clip: rect(0, 0, 0, 0) !important;
   white-space: nowrap !important;
   border: 0 !important;
-}
-
-@media (max-width: 860px) {
-  .cam-inner {
-    grid-template-columns: 1fr;
-    gap: 34px;
-  }
-
-  .cam-detail-column {
-    width: min(100%, 670px);
-    margin: 0 auto;
-  }
 }
 
 @media (max-width: 520px) {
