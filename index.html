@@ -393,9 +393,11 @@
   const petalButtons = Array.from(host.querySelectorAll(".cam-petal"));
   const detailItems = Array.from(host.querySelectorAll(".cam-detail-item"));
   const showAllButtons = Array.from(host.querySelectorAll('[data-action="show-all"]'));
+  const viewAllButton = host.querySelector(".cam-show-all");
   const flower = host.querySelector(".cam-flower");
 
   function selectPrinciple(id) {
+	viewAllButton.hidden = false;
     flower.dataset.selected = id;
 
     petalButtons.forEach((button) => {
@@ -412,6 +414,7 @@
   }
 
   function showAll() {
+	viewAllButton.hidden = true;
     delete flower.dataset.selected;
 
     petalButtons.forEach((button) => {
