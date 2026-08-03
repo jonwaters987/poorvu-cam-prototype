@@ -37,7 +37,7 @@
 }
 
 .cam-section-intro {
-  width: min(100%, 900px);
+  width: min(100%, 1200px);
   margin: 0 auto clamp(24px, 3vw, 34px);
   color: var(--cam-ink);
   font-size: clamp(17px, 1.65vw, 21px);
@@ -46,12 +46,12 @@
 }
 
 .cam-inner {
-  width: min(100%, 900px);
+  width: min(100%, 1200px);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 38px;
-  align-items: start;
+  grid-template-columns: minmax(480px, 520px) minmax(0, 1fr);
+  gap: clamp(52px, 5vw, 82px);
+  align-items: center;
 }
 
 .cam-visual-column {
@@ -204,9 +204,9 @@
 }
 
 .cam-detail-column {
-  width: min(100%, 820px);
+  width: 100%;
   min-width: 0;
-  margin: 0 auto;
+  margin: 0;
 }
 
 .cam-details {
@@ -256,6 +256,24 @@
   clip: rect(0, 0, 0, 0) !important;
   white-space: nowrap !important;
   border: 0 !important;
+}
+
+
+@media (max-width: 1050px) {
+  .cam-section-intro,
+  .cam-inner {
+    width: min(100%, 820px);
+  }
+
+  .cam-inner {
+    grid-template-columns: 1fr;
+    gap: 38px;
+  }
+
+  .cam-detail-column {
+    width: min(100%, 820px);
+    margin: 0 auto;
+  }
 }
 
 @media (max-width: 520px) {
